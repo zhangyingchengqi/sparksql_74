@@ -21,7 +21,7 @@ object Test9_accessAnalysis_broadcast {
     })
     val ipDataFrame = ipDataset.toDF("startNum", "endNum", "province")
     //发布成广播变量
-    val ipRulesArray = ipDataFrame.collect()
+    val ipRulesArray = ipDataFrame.collect() //从服务器Executor中收集到driver
     val broadcastRef = spark.sparkContext.broadcast(ipRulesArray)
 
     val accessDataset = spark.read.textFile("data/access.log")
@@ -48,6 +48,7 @@ object Test9_accessAnalysis_broadcast {
       }
       province
     })
+
 
     //val resultDataFrame=spark.sql("select ip2province(ipNum) province, count(*) cn from v_accessIpLong  group by province  ")
 
